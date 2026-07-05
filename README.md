@@ -12,7 +12,10 @@ A production-grade Flutter WebView SDK with a JavaScript bridge, native Dart mod
 - **Download Engine** — File download with progress tracking and system manager integration
 - **Theme Engine** — Auto light/dark CSS injection with reactive switching
 - **Performance Diagnostics** — Startup timeline (T0–T5), FPS, and milestone export
-- **Crash Recovery** — Automatic WebView restoration after renderer crash
+- **Crash Recovery** — Automatic WebView restoration after renderer crash with user-facing overlay UI
+- **Splash → WebView Transition** — Animated fade with configurable duration
+- **Custom Page-Load Loader** — Overlay with progress during navigation
+- **Force Update** — Remote version check with blocking or dismissible update screen
 - **Pull-to-Refresh** — Native refresh gesture with programmatic support
 - **White Flash Prevention** — Splash → WebView fade-in on first paint
 - **Lifecycle Management** — Automatic pause/resume, cookie flushing, focus restoration
@@ -26,7 +29,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  fixit_webview: ^0.9.0-beta.1
+  fixit_webview: ^0.10.0-beta.1
 ```
 
 Then run:
@@ -211,13 +214,16 @@ final config = FixitRuntimeConfig.builder()
 ### Performance
 - `FixitPerformanceEngine` — FPS, memory, load time metrics
 
+### Force Update
+- `FixitForceUpdate` — Remote version checking with blocking/dismissible update screen
+
 ## Roadmap
 
 - [ ] Push notifications with native FCM/APNs
-- [ ] Splash screen → WebView transition
-- [ ] Custom page-load loader
-- [ ] WebView crash recovery UI
-- [ ] Force update mechanism
+- [x] Splash screen → WebView transition
+- [x] Custom page-load loader
+- [x] WebView crash recovery UI
+- [x] Force update mechanism
 - [ ] WebRTC permission callbacks
 
 ## License

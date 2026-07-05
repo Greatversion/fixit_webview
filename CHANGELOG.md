@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.0-beta.1
+
+### Added
+
+- **Splash → WebView Transition Animation** — Splash now fades out while the WebView fades in using `AnimatedOpacity`. Duration configurable via `setSplashTransitionDuration()`. Defaults to 300ms.
+- **Crash Recovery UI** — User-facing overlay with icon, message, and "Reload" button when the WebView renderer crashes. Customizable via `crashOverlayBuilder` in `enableCrashRecovery()`.
+- **Force Update Module** — `FixitForceUpdate.check()` fetches a remote JSON endpoint to compare version strings, returns a `ForceUpdateResult`, and can show a blocking or dismissible `FixitForceUpdateScreen`.
+- **Custom Page-Load Loader** — `enableCustomLoader()` accepts a `loaderBuilder` that receives `(BuildContext, double progress)` to show an overlay during navigation.
+
 ## 0.9.0-beta.1
 
 Initial beta release of the Fixit WebView SDK.
