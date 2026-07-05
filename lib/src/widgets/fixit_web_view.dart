@@ -46,6 +46,11 @@ class _FixitWebViewState extends State<FixitWebView>
     with WidgetsBindingObserver {
   bool _webViewVisible = true;
   bool _showSplash = false;
+  bool _isCrashed = false;
+  double _webViewOpacity = 1.0;
+  double _splashOpacity = 1.0;
+  bool _isLoading = false;
+  double _currentProgress = 0.0;
   StreamSubscription<WebViewCrashEvent>? _crashSub;
   StreamSubscription<void>? _restartSub;
 
@@ -57,6 +62,8 @@ class _FixitWebViewState extends State<FixitWebView>
     if (cfg?.whiteFlashPrevention == true) {
       _webViewVisible = false;
       _showSplash = true;
+      _webViewOpacity = 0.0;
+      _splashOpacity = 1.0;
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.controller.initializeEventChannel();
@@ -90,11 +97,18 @@ class _FixitWebViewState extends State<FixitWebView>
       ctrl.onFirstPaint.addListener(_onFirstPaint);
     }
 
+    // Custom loader: track loading state for overlay
+    if (cfg?.loaderBuilder != null) {
+      ctrl.loading.addListener(_onLoadingChanged);
+      ctrl.progress.addListener(_onProgressChanged);
+    }
+
     // Crash recovery: auto-restart WebView on renderer crash
     if (cfg?.enableCrashRecovery == true) {
       _crashSub = ctrl.onCrash.listen((_) => _recoverFromCrash());
       _restartSub = ctrl.onRestart.listen((_) {
         if (mounted) {
+          _isCrashed = false;
           _webViewVisible = true;
           setState(() {});
         }
@@ -104,15 +118,40 @@ class _FixitWebViewState extends State<FixitWebView>
 
   void _onFirstPaint() {
     if (!mounted) return;
+    final duration = widget.config?.splashTransitionDuration ??
+        const Duration(milliseconds: 300);
     setState(() {
-      _showSplash = false;
+      _webViewOpacity = 1.0;
+      _splashOpacity = 0.0;
       _webViewVisible = true;
+    });
+    Future.delayed(duration, () {
+      if (mounted) {
+        setState(() => _showSplash = false);
+      }
+    });
+  }
+
+  void _onLoadingChanged() {
+    if (!mounted) return;
+    setState(() {
+      _isLoading = widget.controller.loading.value;
+    });
+  }
+
+  void _onProgressChanged() {
+    if (!mounted) return;
+    setState(() {
+      _currentProgress = widget.controller.progress.value;
     });
   }
 
   Future<void> _recoverFromCrash() async {
     if (!mounted) return;
-    setState(() => _webViewVisible = false);
+    setState(() {
+      _isCrashed = true;
+      _webViewVisible = false;
+    });
     // Reload the last known URL
     final url = widget.controller.currentUrl.value;
     if (url != null) {
@@ -126,6 +165,8 @@ class _FixitWebViewState extends State<FixitWebView>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     widget.controller.onFirstPaint.removeListener(_onFirstPaint);
+    widget.controller.loading.removeListener(_onLoadingChanged);
+    widget.controller.progress.removeListener(_onProgressChanged);
     _crashSub?.cancel();
     _restartSub?.cancel();
     super.dispose();
@@ -190,10 +231,13 @@ class _FixitWebViewState extends State<FixitWebView>
       );
     }
 
-    // White flash prevention: wrap with opacity + splash overlay
+    // White flash prevention: animated fade from splash to WebView
     if (cfg?.whiteFlashPrevention == true) {
-      webView = Opacity(
-        opacity: _webViewVisible ? 1.0 : 0.0,
+      final transitionDuration = cfg!.splashTransitionDuration;
+
+      webView = AnimatedOpacity(
+        opacity: _webViewOpacity,
+        duration: transitionDuration,
         child: webView,
       );
 
@@ -202,9 +246,40 @@ class _FixitWebViewState extends State<FixitWebView>
           if (_webViewVisible || _showSplash) webView,
           if (_showSplash)
             Positioned.fill(
-              child:
-                  cfg?.splashBuilder?.call(context) ?? _defaultSplash(context),
+              child: AnimatedOpacity(
+                opacity: _splashOpacity,
+                duration: transitionDuration,
+                child: cfg.splashBuilder?.call(context) ??
+                    _defaultSplash(context),
+              ),
             ),
+        ],
+      );
+    }
+
+    // Custom loader: overlay during page navigation
+    final loaderBuilder = cfg?.loaderBuilder;
+    if (loaderBuilder != null) {
+      webView = Stack(
+        children: [
+          webView,
+          if (_isLoading)
+            Positioned.fill(
+              child: loaderBuilder(context, _currentProgress),
+            ),
+        ],
+      );
+    }
+
+    // Crash recovery UI: overlay when renderer crashes
+    if (_isCrashed && cfg?.enableCrashRecovery == true) {
+      webView = Stack(
+        children: [
+          webView,
+          Positioned.fill(
+            child: cfg?.crashOverlayBuilder?.call(context) ??
+                _defaultCrashOverlay(context),
+          ),
         ],
       );
     }
@@ -233,6 +308,44 @@ class _FixitWebViewState extends State<FixitWebView>
       color: Theme.of(context).scaffoldBackgroundColor,
       child: const Center(
         child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget _defaultCrashOverlay(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.error_outline, size: 48, color: Colors.red),
+            const SizedBox(height: 16),
+            Text(
+              'Page crashed',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Something went wrong while loading the page.',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: () async {
+                final url = widget.controller.currentUrl.value;
+                if (url != null) {
+                  await widget.controller.loadUrl(url);
+                } else {
+                  await widget.controller.reload();
+                }
+              },
+              icon: const Icon(Icons.refresh),
+              label: const Text('Reload'),
+            ),
+          ],
+        ),
       ),
     );
   }

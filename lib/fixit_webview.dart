@@ -27,6 +27,7 @@ export 'src/theme/theme_engine.dart';
 export 'src/config/fixit_theme_config.dart';
 export 'src/config/ai_adapter.dart';
 export 'src/config/native_feature_registry.dart';
+export 'src/update/force_update.dart';
 export 'src/navigation/interceptors.dart';
 export 'src/performance/performance_engine.dart';
 export 'src/widgets/fixit_web_view.dart' show FixitWebView;

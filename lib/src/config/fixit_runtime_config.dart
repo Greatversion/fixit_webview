@@ -59,8 +59,20 @@ class FixitRuntimeConfig {
   /// Whether to automatically recreate the WebView after a renderer crash.
   final bool enableCrashRecovery;
 
+  /// Optional builder for a custom overlay shown while recovering from a crash.
+  /// Defaults to a centered message with a retry button.
+  final WidgetBuilder? crashOverlayBuilder;
+
   /// Optional builder for a custom splash widget shown before first paint.
   final WidgetBuilder? splashBuilder;
+
+  /// Duration of the splash → WebView fade transition.
+  /// Defaults to 300ms. Only applies when [whiteFlashPrevention] is enabled.
+  final Duration splashTransitionDuration;
+
+  /// Optional builder for a custom loading overlay shown during page navigation.
+  /// Receives the build context and current progress (0.0–1.0).
+  final Widget Function(BuildContext, double)? loaderBuilder;
 
   FixitRuntimeConfig._({
     required this.initialUrl,
@@ -90,7 +102,10 @@ class FixitRuntimeConfig {
     this.enablePullToRefresh = false,
     this.whiteFlashPrevention = false,
     this.enableCrashRecovery = false,
+    this.crashOverlayBuilder,
     this.splashBuilder,
+    this.splashTransitionDuration = const Duration(milliseconds: 300),
+    this.loaderBuilder,
   });
 
   static FixitRuntimeConfigBuilder builder() => FixitRuntimeConfigBuilder();
@@ -112,7 +127,10 @@ class FixitRuntimeConfigBuilder {
   bool _enablePullToRefresh = false;
   bool _whiteFlashPrevention = false;
   bool _enableCrashRecovery = false;
+  WidgetBuilder? _crashOverlayBuilder;
   WidgetBuilder? _splashBuilder;
+  Duration _splashTransitionDuration = const Duration(milliseconds: 300);
+  Widget Function(BuildContext, double)? _loaderBuilder;
 
   bool _javaScriptEnabled = true;
   bool _domStorageEnabled = true;
@@ -278,6 +296,11 @@ class FixitRuntimeConfigBuilder {
     return this;
   }
 
+  FixitRuntimeConfigBuilder setSplashTransitionDuration(Duration duration) {
+    _splashTransitionDuration = duration;
+    return this;
+  }
+
   FixitRuntimeConfigBuilder enableWhiteFlashPrevention(
       {WidgetBuilder? splashBuilder}) {
     _whiteFlashPrevention = true;
@@ -285,8 +308,18 @@ class FixitRuntimeConfigBuilder {
     return this;
   }
 
-  FixitRuntimeConfigBuilder enableCrashRecovery() {
+  FixitRuntimeConfigBuilder enableCustomLoader({
+    Widget Function(BuildContext, double)? loaderBuilder,
+  }) {
+    _loaderBuilder = loaderBuilder;
+    return this;
+  }
+
+  FixitRuntimeConfigBuilder enableCrashRecovery({
+    WidgetBuilder? crashOverlayBuilder,
+  }) {
     _enableCrashRecovery = true;
+    _crashOverlayBuilder = crashOverlayBuilder;
     return this;
   }
 
@@ -319,7 +352,10 @@ class FixitRuntimeConfigBuilder {
       enablePullToRefresh: _enablePullToRefresh,
       whiteFlashPrevention: _whiteFlashPrevention,
       enableCrashRecovery: _enableCrashRecovery,
+      crashOverlayBuilder: _crashOverlayBuilder,
       splashBuilder: _splashBuilder,
+      splashTransitionDuration: _splashTransitionDuration,
+      loaderBuilder: _loaderBuilder,
     );
   }
 }
