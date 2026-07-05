@@ -21,6 +21,15 @@ dependencies:
   path_provider: ^2.1.0
   plugin_platform_interface: ^2.1.4
 
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.fixit.fixit_webview
+        pluginClass: FixitWebviewPlugin
+      ios:
+        pluginClass: FixitWebviewPlugin
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
