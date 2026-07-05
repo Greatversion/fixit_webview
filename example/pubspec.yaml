@@ -1,0 +1,20 @@
+name: fixit_webview_example
+description: Demonstrates how to use the fixit_webview package.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fixit_webview:
+    path: ../
+  fixit_core:
+    path: ../../fixit_core
+  path_provider: ^2.1.6
+
+flutter:
+  uses-material-design: true

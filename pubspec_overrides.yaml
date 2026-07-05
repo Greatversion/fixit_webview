@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: fixit_core
+dependency_overrides:
+  fixit_core:
+    path: ..\\fixit_core
