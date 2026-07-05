@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0-beta.3
+
+- Fix: route connectivity callbacks to main thread via webView.post (crash fix)
+
 ## 0.10.0-beta.2
 
 - Fix: wrap multi-line if body in braces (static analysis)
