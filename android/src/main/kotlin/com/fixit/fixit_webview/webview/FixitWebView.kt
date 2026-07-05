@@ -485,14 +485,18 @@ class FixitWebView(
                 val request = NetworkRequest.Builder()
                     .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                     .build()
-                cm.registerNetworkCallback(request, connectivityCallback)
-                connectivityCallbackRegistered = true
-                
-                // Send initial state
-                val activeNetwork = cm.activeNetwork
-                val caps = cm.getNetworkCapabilities(activeNetwork)
-                val isOnline = caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-                sendEvent("connectivityChanged", if (isOnline) "online" else "offline")
+                try {
+                    cm.registerNetworkCallback(request, connectivityCallback)
+                    connectivityCallbackRegistered = true
+
+                    // Send initial state
+                    val activeNetwork = cm.activeNetwork
+                    val caps = cm.getNetworkCapabilities(activeNetwork)
+                    val isOnline = caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+                    sendEvent("connectivityChanged", if (isOnline) "online" else "offline")
+                } catch (_: SecurityException) {
+                    // ACCESS_NETWORK_STATE permission not granted
+                }
             }
             webView.settings.apply {
                 javaScriptEnabled = config.javaScriptEnabled
