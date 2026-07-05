@@ -116,9 +116,10 @@ packages:
   fixit_core:
     dependency: "direct main"
     description:
-      path: "../fixit_core"
-      relative: true
-    source: path
+      name: fixit_core
+      sha256: ad5706fce3ee1fa10b2677b2b6db9ea48ccadca3ebe9e676b8c2259c49b8b92e
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   flutter:
     dependency: "direct main"

@@ -87,7 +87,7 @@
     },
     {
       "name": "fixit_core",
-      "rootUri": "../../fixit_core",
+      "rootUri": "file:///C:/Users/verma/AppData/Local/Pub/Cache/hosted/pub.dev/fixit_core-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
