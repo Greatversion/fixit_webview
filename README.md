@@ -29,7 +29,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  fixit_webview: ^0.10.0-beta.1
+  fixit_webview: ^0.10.0-beta.2
 ```
 
 Then run:

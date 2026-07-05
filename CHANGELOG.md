@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0-beta.2
+
+- Fix: wrap multi-line if body in braces (static analysis)
+- Fix: bump path_provider lower bound to `^2.1.0` (dependency constraint compatibility)
+
 ## 0.10.0-beta.1
 
 ### Added
