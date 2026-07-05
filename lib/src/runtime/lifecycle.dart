@@ -28,7 +28,9 @@ class FixitLifecycleManager {
 
   Future<void> pause() async {
     if (_currentState == AppLifecycleState.paused ||
-        _currentState == AppLifecycleState.hidden) return;
+        _currentState == AppLifecycleState.hidden) {
+      return;
+    }
     _currentState = AppLifecycleState.paused;
     _logger.debug('Pausing runtime view ${runtime.viewId}');
 
