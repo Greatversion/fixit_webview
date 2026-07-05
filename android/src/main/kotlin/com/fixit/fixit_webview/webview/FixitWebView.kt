@@ -60,16 +60,16 @@ class FixitWebView(
     private var connectivityCallbackRegistered = false
     private val connectivityCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            sendEvent("connectivityChanged", "online")
+            webView.post { sendEvent("connectivityChanged", "online") }
         }
         override fun onLost(network: Network) {
-            sendEvent("connectivityChanged", "offline")
+            webView.post { sendEvent("connectivityChanged", "offline") }
         }
         override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
             if (caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-                sendEvent("connectivityChanged", "online")
+                webView.post { sendEvent("connectivityChanged", "online") }
             } else {
-                sendEvent("connectivityChanged", "offline")
+                webView.post { sendEvent("connectivityChanged", "offline") }
             }
         }
     }
