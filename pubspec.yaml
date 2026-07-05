@@ -7,7 +7,6 @@ issue_tracker: https://github.com/anomalyco/fixit_webview/issues
 documentation: https://fixit.ai/docs/webview
 topics: 
   - webview
-  - web
   - browser
   - bridge
   - offline
