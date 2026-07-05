@@ -66,7 +66,6 @@ class _FixitWebViewState extends State<FixitWebView>
       _splashOpacity = 1.0;
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.controller.initializeEventChannel();
       if (cfg?.themeConfig != null) {
         widget.controller.themeEngine.applyConfig(cfg!.themeConfig!);
       }
@@ -213,7 +212,10 @@ class _FixitWebViewState extends State<FixitWebView>
               params.onFocusChanged(true);
             },
           )
-            ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+            ..addOnPlatformViewCreatedListener((id) {
+              ctrl.initializeEventChannel();
+              params.onPlatformViewCreated(id);
+            })
             ..create();
         },
       );
@@ -223,6 +225,9 @@ class _FixitWebViewState extends State<FixitWebView>
         layoutDirection: TextDirection.ltr,
         creationParams: creationParams,
         creationParamsCodec: const StandardMessageCodec(),
+        onPlatformViewCreated: (_) {
+          ctrl.initializeEventChannel();
+        },
       );
     } else {
       return Center(
