@@ -122,6 +122,8 @@ consider supporting future updates.
   </a>
 </p>
 
+---
+
 
 ## Quick Start (Complete App)
 
