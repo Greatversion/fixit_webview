@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0-beta.2
+
+- Docs: remove roadmap section with incomplete items from README
+
 ## 0.11.0-beta.1
 
 - Docs: comprehensive README rewrite with complete app examples, full JS bridge guide with JS/Dart code, troubleshooting FAQ, best practices, lifecycle diagram, and API configuration reference table

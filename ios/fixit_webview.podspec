@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'fixit_webview'
-  s.version = '0.11.0-beta.1'
+  s.version = '0.11.0-beta.2'
   s.summary          = 'Core WebView Engine for the Fixit Runtime SDK'
   s.description      = 'Production-grade iOS engine wrapping WKWebView.'
   s.homepage         = 'https://github.com/fixit/fixit_engine'
