@@ -8,6 +8,7 @@ class FixitRequest {
   final Map<String, String> headers;
 
   /// Creates a [FixitRequest] with the given [url] and [headers].
+  /// Creates a [FixitRequest] with the given [url] and [headers].
   FixitRequest({required this.url, required this.headers});
 }
 

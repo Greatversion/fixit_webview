@@ -16,6 +16,8 @@ class NavigationRequest {
   /// The type of navigation (e.g. 'link', 'form', 'other').
   final String navigationType;
 
+  /// Creates a [NavigationRequest] with the given [url] and optional
+  /// navigation properties.
   const NavigationRequest({
     required this.url,
     this.isMainFrame = true,
@@ -35,6 +37,7 @@ class SslErrorEvent {
   /// The hostname associated with the error, if available.
   final String? host;
 
+  /// Creates an [SslErrorEvent] with the given [url], [error], and optional [host].
   const SslErrorEvent({
     required this.url,
     required this.error,
@@ -53,6 +56,7 @@ class NavigationEntry {
   /// When this navigation entry was created.
   final DateTime timestamp;
 
+  /// Creates a [NavigationEntry] with the given [url], [timestamp], and optional [title].
   const NavigationEntry({
     required this.url,
     this.title,

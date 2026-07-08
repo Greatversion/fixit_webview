@@ -8,6 +8,7 @@ class UrlRule {
   final String route;
 
   /// Creates a [UrlRule] with the given [pattern] and [route].
+  /// Creates a [UrlRule] that routes URLs matching [pattern] to [route].
   UrlRule({required this.pattern, required this.route});
 }
 

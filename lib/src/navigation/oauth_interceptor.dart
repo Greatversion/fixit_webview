@@ -23,6 +23,7 @@ class OAuthCallback {
   /// All query and fragment parameters extracted from the callback URL.
   final Map<String, String> allParams;
 
+  /// Creates an [OAuthCallback] from the given [rawUrl] and extracted parameters.
   OAuthCallback({
     required this.rawUrl,
     this.code,
