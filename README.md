@@ -1845,24 +1845,6 @@ The `example/` directory contains complete, runnable apps:
 
 ---
 
-## Roadmap
-
-- [x] JavaScript Bridge (Dart ↔ JS bidirectional communication)
-- [x] Download Engine (file download with progress tracking)
-- [x] Upload Engine (file upload from web forms)
-- [x] Navigation & Security (whitelist/blacklist, SSL errors, HTTP auth)
-- [x] Offline Engine (cache-first and network-first strategies)
-- [x] Theme Engine (auto light/dark CSS injection)
-- [x] Crash Recovery UI
-- [x] Splash → WebView transition
-- [x] Force Update
-- [x] Performance Diagnostics
-- [x] Cookie & Session Management
-- [ ] Push Notifications (native FCM/APNs via MethodChannel)
-- [ ] WebRTC Permission Callbacks
-
----
-
 ## License
 
 MIT — see [LICENSE](LICENSE).
