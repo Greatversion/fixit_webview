@@ -1,3 +1,6 @@
+/// Fixit WebView — production-grade Flutter WebView plugin with JS bridge,
+/// native Dart module integration, offline engine, theme engine, and
+/// enterprise-grade navigation controls.
 library fixit_webview;
 
 export 'src/widgets/fixit_web_view.dart';

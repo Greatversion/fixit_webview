@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart';
@@ -116,7 +116,7 @@ class FixitOfflineEngine {
     _fallbackHtml = html;
   }
 
-  // ── Retry queue ──────────────────────────────────────────────────────────
+  // -- Retry queue ----------------------------------------------------------
 
   /// Enqueues [url] for automatic retry when connectivity is restored.
   void enqueueRetry(String url) {
@@ -160,7 +160,7 @@ class FixitOfflineEngine {
     client.close();
   }
 
-  // ── File cache ───────────────────────────────────────────────────────────
+  // -- File cache -----------------------------------------------------------
 
   Future<Directory> _cacheDir() async {
     final appDir = await getApplicationCacheDirectory();
@@ -249,7 +249,7 @@ class FixitOfflineEngine {
     }
   }
 
-  // ── Native cache sync ────────────────────────────────────────────────────
+  // -- Native cache sync ----------------------------------------------------
 
   Future<void> _setNativeCachedResponse(
       String url, String data, String mimeType) async {
@@ -286,7 +286,7 @@ class FixitOfflineEngine {
     } catch (_) {}
   }
 
-  // ── Pre-cache ────────────────────────────────────────────────────────────
+  // -- Pre-cache ------------------------------------------------------------
 
   /// Pre-caches the content of every URL in [urls] for offline use.
   /// Fetches each URL over the network and stores the response locally.
@@ -306,7 +306,7 @@ class FixitOfflineEngine {
     await setNativeFallbackHtml(_fallbackHtml);
   }
 
-  // ── Connectivity ─────────────────────────────────────────────────────────
+  // -- Connectivity ---------------------------------------------------------
 
   /// Notifies the engine of a [ConnectivityState] change, emitting it on
   /// [onConnectivityChanged].

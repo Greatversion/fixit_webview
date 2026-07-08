@@ -1,6 +1,6 @@
-import 'fixit_runtime_info.dart';
+﻿import 'fixit_runtime_info.dart';
 
-/// Represents a single named startup milestone (T0–T5).
+/// Represents a single named startup milestone (T0--T5).
 /// Used only by the benchmark/diagnostic tool; never surfaced in public API.
 class StartupMilestone {
   /// Milestone label e.g. "T1_platform_view_created"
@@ -25,7 +25,7 @@ class FixitDiagnostics {
   final double fps;
   final List<String> errors;
 
-  /// Startup timeline milestones (T0–T5).
+  /// Startup timeline milestones (T0--T5).
   /// Populated only when enableDiagnostics = true.
   final List<StartupMilestone> startupTimeline;
 

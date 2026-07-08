@@ -1,10 +1,10 @@
-/// @internal
+﻿/// @internal
 /// Everything in this file is internal to the SDK diagnostic subsystem.
 /// Do NOT export these types from [fixit_webview.dart].
 /// The benchmark tool imports this file directly via a relative or internal import.
 library fixit_webview.internal.diagnostics_models;
 
-// ── DiagnosticsLevel ──────────────────────────────────────────────────────────
+// -- DiagnosticsLevel ----------------------------------------------------------
 
 /// Controls which categories of diagnostics are collected.
 ///
@@ -12,7 +12,7 @@ library fixit_webview.internal.diagnostics_models;
 ///
 /// **Not part of the public SDK API.** Subject to change without a semver bump.
 enum DiagnosticsLevel {
-  /// Only collect startup timeline milestones (T0–T5).
+  /// Only collect startup timeline milestones (T0--T5).
   /// Lowest overhead.
   startup,
 
@@ -23,7 +23,7 @@ enum DiagnosticsLevel {
   verbose,
 }
 
-// ── StartupMilestone ──────────────────────────────────────────────────────────
+// -- StartupMilestone ----------------------------------------------------------
 
 /// A single named startup milestone.
 ///
@@ -33,10 +33,10 @@ enum DiagnosticsLevel {
 /// | T1_platform_view_created      | Native factory create() called             |
 /// | T2_native_webview_created     | Native WebView object constructed          |
 /// | T3_first_frame                | onPageStarted fired                        |
-/// | T4_first_meaningful_progress  | Progress ≥ 10% (early render proxy)        |
+/// | T4_first_meaningful_progress  | Progress >= 10% (early render proxy)        |
 /// | T5_page_finished              | onPageFinished fired                       |
 ///
-/// > **T4 caveat**: "first meaningful progress" is a heuristic — the real
+/// > **T4 caveat**: "first meaningful progress" is a heuristic --- the real
 /// > First Contentful Paint requires a JavaScript-based measurement injected
 /// > by the benchmark tool. Do not label this as "First Paint" externally.
 class StartupMilestone {
@@ -54,7 +54,7 @@ class StartupMilestone {
   String toString() => '$name @ ${epochMs}ms';
 }
 
-// ── StartupTimelineEvent ──────────────────────────────────────────────────────
+// -- StartupTimelineEvent ------------------------------------------------------
 
 /// Typed event emitted on [FixitWebViewController.diagnosticsStream] once
 /// T5 is recorded.
@@ -102,7 +102,7 @@ class StartupTimelineEvent {
       };
 }
 
-// ── FixitDiagnosticsSnapshot ──────────────────────────────────────────────────
+// -- FixitDiagnosticsSnapshot --------------------------------------------------
 
 /// A point-in-time snapshot of runtime state for diagnostic purposes.
 /// Used by the benchmark tool, not for general SDK consumers.

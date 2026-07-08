@@ -35,7 +35,7 @@ class FixitPerformanceEngine {
   /// Creates a [FixitPerformanceEngine] for the given [runtimeInfo].
   FixitPerformanceEngine({required this.runtimeInfo});
 
-  /// Records the page [loadTime] via the performance logger.
+  /// Records the page load [duration] via the performance logger.
   void recordLoadTime(Duration duration) {
     _logger.performance(
         'Page loaded in ${duration.inMilliseconds}ms for runtime ${runtimeInfo.runtimeId}');

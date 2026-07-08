@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +19,7 @@ import '../download/download_engine.dart';
 import '../offline/offline_engine.dart';
 import '../theme/theme_engine.dart';
 
-// ── Event data classes ────────────────────────────────────────────────────────
+// -- Event data classes --------------------------------------------------------
 
 /// Holds the current scroll position and scroll delta of the WebView content.
 class ScrollUpdate {
@@ -75,10 +75,10 @@ class WebViewCrashEvent {
 
 /// Memory pressure levels reported by the OS.
 ///
-/// * [none] – normal memory conditions.
-/// * [moderate] – the OS is beginning to reclaim memory; consider clearing
+/// * [none] -- normal memory conditions.
+/// * [moderate] -- the OS is beginning to reclaim memory; consider clearing
 ///   non-essential caches.
-/// * [critical] – the OS is under severe memory pressure; aggressive cache
+/// * [critical] -- the OS is under severe memory pressure; aggressive cache
 ///   clearing is recommended.
 enum MemoryPressureLevel { none, moderate, critical }
 
@@ -111,7 +111,7 @@ class FixitWebViewController {
     ScrollUpdate(x: 0, y: 0, dx: 0, dy: 0),
   );
 
-  // ── Phase A: Production Hardening ───────────────────────────────────────
+  // -- Phase A: Production Hardening ---------------------------------------
 
   final ValueNotifier<bool> _firstPaint = ValueNotifier<bool>(false);
   bool _firstPaintFired = false;
@@ -187,14 +187,14 @@ class FixitWebViewController {
   Stream<Map<String, dynamic>> get onUploadRequested =>
       _uploadRequestedController.stream;
 
-  /// Bridge manager for JS ↔ Dart communication.
+  /// Bridge manager for JS <-> Dart communication.
   FixitBridgeManager get bridgeManager => _runtime.bridgeManager;
 
-  /// @internal – typed diagnostics stream.
+  /// @internal -- typed diagnostics stream.
   final _diagnosticsController =
       StreamController<StartupTimelineEvent>.broadcast();
 
-  /// @internal – Do NOT expose in public docs.
+  /// @internal -- Do NOT expose in public docs.
   Stream<StartupTimelineEvent> get diagnosticsStream =>
       _diagnosticsController.stream;
 
@@ -559,7 +559,7 @@ class FixitWebViewController {
       final decoded = jsonDecode(raw) as Map<String, dynamic>;
       final callbackId = decoded['callbackId'] as String?;
 
-      // ── Response from JS (completes a pending invoke) ───────────
+      // -- Response from JS (completes a pending invoke) -----------
       if (callbackId != null && _pendingInvocations.containsKey(callbackId)) {
         final completer = _pendingInvocations.remove(callbackId)!;
         final error = decoded['error'];
@@ -571,7 +571,7 @@ class FixitWebViewController {
         return;
       }
 
-      // ── Request from JS (route to bridge manager, send result back) ──
+      // -- Request from JS (route to bridge manager, send result back) --
       _runtime.bridgeManager.handleMessage(decoded).then((result) {
         if (callbackId != null) {
           final response = jsonEncode({
@@ -587,7 +587,7 @@ class FixitWebViewController {
     }
   }
 
-  // ── Cookie & Session API ─────────────────────────────────────────────────
+  // -- Cookie & Session API -------------------------------------------------
 
   /// The cookie manager for reading and writing HTTP cookies.
   FixitCookieManager get cookieManager => _runtime.context.cookies;
@@ -621,7 +621,7 @@ class FixitWebViewController {
     _oAuthInterceptor.addCallbackPattern(pattern);
   }
 
-  // ── Upload API ───────────────────────────────────────────────────────────
+  // -- Upload API -----------------------------------------------------------
 
   /// Resolves a file upload request by providing the selected [filePaths].
   ///
@@ -637,7 +637,7 @@ class FixitWebViewController {
   /// Returns true if the URL matched an OAuth callback.
   bool checkOAuthCallback(String url) => _oAuthInterceptor.analyze(url);
 
-  // ── Download API ─────────────────────────────────────────────────────────
+  // -- Download API ---------------------------------------------------------
 
   /// Accepts a download request with the given [requestId].
   ///
@@ -655,7 +655,7 @@ class FixitWebViewController {
   Future<void> openDownloadFile(String filePath, String mimeType) =>
       downloadEngine.openFile(filePath, mimeType);
 
-  // ── Navigation & Security API ────────────────────────────────────────────
+  // -- Navigation & Security API --------------------------------------------
 
   /// Accepts a previously-reported SSL error for the given [url].
   Future<void> acceptSslError(String url) =>
@@ -703,7 +703,7 @@ class FixitWebViewController {
           safeBrowsingEnabled: safeBrowsingEnabled,
           zoomEnabled: zoomEnabled);
 
-  // ── Permissions API ──────────────────────────────────────────────────────
+  // -- Permissions API ------------------------------------------------------
 
   /// Returns the current status of a permission type.
   Future<PermissionStatus> checkPermission(PermissionType type) async {
@@ -719,7 +719,7 @@ class FixitWebViewController {
   NativeFeatureRegistry get featureRegistry =>
       FixitPermissionManager().featureRegistry;
 
-  /// @internal – Returns a point-in-time snapshot for the benchmark tool.
+  /// @internal -- Returns a point-in-time snapshot for the benchmark tool.
   FixitDiagnostics get diagnostics => FixitDiagnostics(
         runtimeInfo: _runtime.info,
         currentUrl: _currentUrl.value ?? '',
@@ -737,7 +737,7 @@ class FixitWebViewController {
     if (level == MemoryPressureLevel.critical) {
       clearCache();
       _runtime.context.logger
-          .warning('Critical memory pressure — clearing caches');
+          .warning('Critical memory pressure --- clearing caches');
     }
   }
 
@@ -746,7 +746,7 @@ class FixitWebViewController {
     await _runtime.reload();
   }
 
-  // ── Lifecycle Management ────────────────────────────────────────────────
+  // -- Lifecycle Management ------------------------------------------------
 
   /// Pause the WebView: suspends JS timers, pauses media, flushes cookies.
   Future<void> pause() => _runtime.lifecycle.pause();

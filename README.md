@@ -80,7 +80,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  fixit_webview: ^0.11.0-beta.3
+  fixit_webview: ^0.11.0-beta.4
   fixit_core: ^1.0.1
 ```
 

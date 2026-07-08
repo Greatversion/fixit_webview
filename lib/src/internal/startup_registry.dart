@@ -1,6 +1,6 @@
-/// @internal
+﻿/// @internal
 /// Dart-side T0 registry.
-/// Maps viewId → epoch-ms timestamp of when the Flutter widget was inserted.
+/// Maps viewId -> epoch-ms timestamp of when the Flutter widget was inserted.
 ///
 /// Stored as a singleton map so multiple WebView instances can each track
 /// their own T0 independently (tabs, split-screen, nested views).
@@ -20,5 +20,5 @@ class _FixitStartupRegistry {
 }
 
 /// Global startup registry.
-/// @internal – not exported from fixit_webview.dart.
+/// @internal -- not exported from fixit_webview.dart.
 final fixitStartupRegistry = _FixitStartupRegistry._();

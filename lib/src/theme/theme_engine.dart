@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'package:flutter/material.dart';
 import '../config/fixit_theme_config.dart';
 import 'theme_definition.dart';
@@ -20,7 +20,7 @@ class FixitThemeEngine {
   /// Creates a [FixitThemeEngine] with the given [evaluateJavascript] callback.
   FixitThemeEngine({required this.evaluateJavascript});
 
-  // ── Public API ──────────────────────────────────────────────────────────
+  // -- Public API ----------------------------------------------------------
 
   /// The currently active [ThemeDefinition], or `null` if none.
   ThemeDefinition? get currentTheme => _currentTheme;

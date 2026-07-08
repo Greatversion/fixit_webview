@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.0-beta.4
+
+- Fix: dartdoc warning — unresolved doc reference [loadTime] → [duration]
+- Docs: add library-level doc comment to fixit_webview.dart
+
 ## 0.11.0-beta.3
 
 - Docs: add support contact link to README

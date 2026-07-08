@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+﻿import 'package:flutter/widgets.dart';
 import 'fixit_capabilities.dart';
 import 'fixit_theme_config.dart';
 import '../internal/diagnostics_models.dart';
@@ -88,7 +88,7 @@ class FixitRuntimeConfig {
   /// Whether pull-to-refresh gesture is enabled.
   final bool enablePullToRefresh;
 
-  /// Whether white flash prevention is enabled (splash → invisible WebView → fade in).
+  /// Whether white flash prevention is enabled (splash -> invisible WebView -> fade in).
   final bool whiteFlashPrevention;
 
   /// Whether to automatically recreate the WebView after a renderer crash.
@@ -101,12 +101,12 @@ class FixitRuntimeConfig {
   /// Optional builder for a custom splash widget shown before first paint.
   final WidgetBuilder? splashBuilder;
 
-  /// Duration of the splash → WebView fade transition.
+  /// Duration of the splash -> WebView fade transition.
   /// Defaults to 300ms. Only applies when [whiteFlashPrevention] is enabled.
   final Duration splashTransitionDuration;
 
   /// Optional builder for a custom loading overlay shown during page navigation.
-  /// Receives the build context and current progress (0.0–1.0).
+  /// Receives the build context and current progress (0.0--1.0).
   final Widget Function(BuildContext, double)? loaderBuilder;
 
   FixitRuntimeConfig._({
@@ -216,7 +216,7 @@ class FixitRuntimeConfigBuilder {
     return this;
   }
 
-  // ── Phase 1 Core Settings ──────────────────────────────────────────
+  // -- Phase 1 Core Settings ------------------------------------------
 
   /// Sets whether JavaScript execution is enabled.
   FixitRuntimeConfigBuilder setJavaScriptEnabled(bool enabled) {
@@ -294,7 +294,7 @@ class FixitRuntimeConfigBuilder {
     return this;
   }
 
-  // ───────────────────────────────────────────────────────────────────
+  // -------------------------------------------------------------------
 
   /// Enables diagnostic logging at the given [level].
   FixitRuntimeConfigBuilder enableDiagnostics({
@@ -383,7 +383,7 @@ class FixitRuntimeConfigBuilder {
   }
 
   /// Enables a custom loading overlay shown during page navigation.
-  /// The [loaderBuilder] receives the build context and a progress value (0.0–1.0).
+  /// The [loaderBuilder] receives the build context and a progress value (0.0--1.0).
   FixitRuntimeConfigBuilder enableCustomLoader({
     Widget Function(BuildContext, double)? loaderBuilder,
   }) {
