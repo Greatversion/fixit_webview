@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0-beta.3
+
+- Docs: add support contact link to README
+
 ## 0.11.0-beta.2
 
 - Docs: remove roadmap section with incomplete items from README
