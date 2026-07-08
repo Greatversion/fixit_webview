@@ -6,7 +6,7 @@
 
 A production-grade Flutter WebView plugin with a JavaScript bridge, native Dart module integration, offline engine, theme engine, and enterprise navigation controls. Designed for wrapping websites as native mobile apps with rich Dart ↔ Web interaction.
 
-Contact for any queries: v02.aaditya@gmail.com
+Need priority support or custom integration? Contact: v02.aaditya@gmail.com
 
 ---
 
