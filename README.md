@@ -5,6 +5,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-blue)](https://pub.dev/packages/fixit_webview)
 
 A production-grade Flutter WebView plugin with a JavaScript bridge, native Dart module integration, offline engine, theme engine, and enterprise navigation controls. Designed for wrapping websites as native mobile apps with rich Dart ↔ Web interaction.
+Contact for any queries: v02.aaditya@gmail.com
 
 ---
 
