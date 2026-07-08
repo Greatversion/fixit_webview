@@ -118,7 +118,7 @@ consider supporting future updates.
 
 <p align="center">
   <a href="https://fixitbhaii-solutions.vercel.app/support">
-    <img src="https://zknopaenstomltxmdest.supabase.co/storage/v1/object/public/Categories_image/ChatGPT%20Image%20Jul%208,%202026,%2011_26_58%20AM.png" width="700">
+    <img src="https://zknopaenstomltxmdest.supabase.co/storage/v1/object/public/Categories_image/ChatGPT%20Image%20Jul%208,%202026,%2011_26_58%20AM.png" width="200">
   </a>
 </p>
 ---
